@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/stud/devel/APK_2017_constant72/01_Templates/main.cpp
+iostream
+-
+myarray.h
+/home/stud/devel/APK_2017_constant72/01_Templates/myarray.h
+
+/home/stud/devel/APK_2017_constant72/01_Templates/myarray.h
+exception
+-
+
