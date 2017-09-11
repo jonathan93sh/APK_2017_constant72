@@ -2,7 +2,10 @@
 #include "myarray.h"
 
 using namespace std;
+
 void intArrayTest();
+void myFindTest();
+void stringTest();
 
 int main(int argc, char *argv[])
 {
@@ -10,9 +13,12 @@ int main(int argc, char *argv[])
 
     intArrayTest();
 
+    myFindTest();
+    stringTest();
+    string * test = new std::string("test");
 
-
-
+    string * t2 = new std::string(*test);
+    cout << *t2 << endl;
     return 0;
 }
 
@@ -72,4 +78,84 @@ void intArrayTest()
     //cref[4] = 10; assignment of read-only
 
 
+}
+
+void myFindTest()
+{
+    {
+        MyArray<int> my;
+
+        for(auto i = 0; i < 10; i++)
+            my.fill(i);
+
+        cout << "Looking for '9'? " << (myfind(my.begin(), my.end(), 9) != nullptr? " Found " : " nothing") << " rvalue: " << *myfind(my.begin(), my.end(), 9) << endl;
+    }
+
+    /*{
+        MyArray<double> my;
+
+        for(auto i = 0; i < 10; i++)
+            my.fill(i);
+
+        cout << "Looking for '9'? " << (myfind(my.begin(), my.end(), 9) != nullptr? " Found " : " nothing") << " rvalue: " << *myfind(my.begin(), my.end(), 9) << endl;
+        // no matching function for call to myfind(const double *, const double *, int)
+    }*/
+
+    MyArray<double> myD; // ex 1.3 - grunden til at koden for myArray<int> ikke vil virke for myArray<double> er fordi templates funktioner kun har explisit cast, så kompileren finder ikke automatisk ud af at den skal caste den integer værdi om til en double, og derfor ikke kan finde myfind der passer til parameter typerne.
+
+    for(auto i = 0; i < 10; i++)
+        myD.fill(i);
+
+    cout << "Looking for '9'? " << (myfind(myD.begin(), myD.end(), (double)9) != nullptr? " Found " : " nothing") << " rvalue: " << *myfind(myD.begin(), myD.end(),(double) 9) << endl;
+
+
+    {
+        MyArray<double> my;
+
+        for(auto i = 0; i < 10; i++)
+            my.fill(i);
+
+        cout << "Looking for '9'? " << (myfind(my.begin(), my.end(), 9) != nullptr? " Found " : " nothing") << " rvalue: " << *myfind(my.begin(), my.end(), 9) << endl;
+        // efter at have tilføjet en ekstra template parameter behøver vi ikke at caste 9 om til en double.
+    }
+
+    MyArray<int> my;
+    for(auto i = 20; i > 0; i--)
+        my.fill(i);
+
+    myD = my;
+
+    for(auto i = 0; i < my.size(); i++)
+    {
+        if((int)myD[i] != my[i])
+            cout << "myD har ikke den samme værdi som my" << myD[i] << "!=" << my[i] << endl;
+        cout << myD[i] << " == " << my[i] << endl;
+    }
+
+}
+
+void stringTest()
+{
+    MyArray<string *> myStr;
+
+    myStr.fill(new string("Hallo"));
+    myStr.fill(new string("Det"));
+    myStr.fill(new string("Vrker"));
+    myStr.fill(new string("sku'"));
+
+    for(auto i = 0; i < myStr.size(); i++)
+    {
+        cout << *myStr[i] << endl;
+    }
+
+    myStr[2] = new string("Virker");
+
+    for(auto i = 0; i < myStr.size(); i++)
+    {
+        cout << *myStr[i] << endl;
+    }
+
+    cout << *myStr.begin();
+cout << *myStr.end();
+    cout << "Looking for 'Virker'? " << (myfind(myStr.begin(), myStr.end(), new string("Virker")) != nullptr? " Found " : " nothing") << " rvalue: " << *myfind(myStr.begin(), myStr.end(), new string("Virker")) << endl;
 }
