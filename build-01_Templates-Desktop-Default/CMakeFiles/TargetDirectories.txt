@@ -1,0 +1,3 @@
+/home/stud/devel/APK_2017_constant72/build-01_Templates-Desktop-Default/CMakeFiles/rebuild_cache.dir
+/home/stud/devel/APK_2017_constant72/build-01_Templates-Desktop-Default/CMakeFiles/edit_cache.dir
+/home/stud/devel/APK_2017_constant72/build-01_Templates-Desktop-Default/CMakeFiles/01_Templates.dir

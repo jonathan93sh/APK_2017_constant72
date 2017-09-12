@@ -1,0 +1,1 @@
+/usr/bin/g++   -g   CMakeFiles/01_Templates.dir/main.cpp.o  -o 01_Templates -rdynamic 
