@@ -9,6 +9,8 @@
 /home/stud/devel/APK_2017_constant72/01_Templates/main.cpp
 iostream
 -
+vector
+-
 myarray.h
 /home/stud/devel/APK_2017_constant72/01_Templates/myarray.h
 sharedptr.h

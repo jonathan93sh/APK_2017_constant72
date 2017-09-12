@@ -1,6 +1,8 @@
 #include <iostream>
+#include <vector>
 #include "myarray.h"
 #include "sharedptr.h"
+
 
 using namespace std;
 
@@ -8,6 +10,7 @@ void intArrayTest();
 void myFindTest();
 void stringTest();
 void sharedptrTest();
+void Accumulation();
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +22,7 @@ int main(int argc, char *argv[])
     sharedptrTest();
 
     stringTest();
+    Accumulation();
     string * test = new std::string("test");
 
     string * t2 = new std::string(*test);
@@ -180,6 +184,27 @@ void sharedptrTest()
 
     cout << *stest << " count: " << stest.count() << endl;
 
+
+
+
+}
+
+void Accumulation()
+{
+    MyArray<int> intArray;
+    vector<int> intVec;
+    MyArray<double> dArray;
+
+    for(auto i = 0; i < 5; i++)
+    {
+        intArray.fill(i);
+        intVec.push_back(i);
+        dArray.fill((double)i /100);
+    }
+
+    cout << "sum of intArray: " << myAccumalation(intArray) << " size: " << intArray.size() << endl;
+    cout << "sum of intVec: " << myAccumalation(intVec)  << " size: " << intVec.size() << endl;
+    cout << "sum of dArray: " << myAccumalation(dArray) << endl;
 
 
 
