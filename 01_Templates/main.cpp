@@ -1,11 +1,13 @@
 #include <iostream>
 #include "myarray.h"
+#include "sharedptr.h"
 
 using namespace std;
 
 void intArrayTest();
 void myFindTest();
 void stringTest();
+void sharedptrTest();
 
 int main(int argc, char *argv[])
 {
@@ -14,6 +16,8 @@ int main(int argc, char *argv[])
     intArrayTest();
 
     myFindTest();
+    sharedptrTest();
+
     stringTest();
     string * test = new std::string("test");
 
@@ -148,14 +152,35 @@ void stringTest()
         cout << *myStr[i] << endl;
     }
 
-    myStr[2] = new string("Virker");
+    myStr[2] = new std::string("Virker");
 
     for(auto i = 0; i < myStr.size(); i++)
     {
         cout << *myStr[i] << endl;
     }
 
-    cout << *myStr.begin();
-cout << *myStr.end();
-    cout << "Looking for 'Virker'? " << (myfind(myStr.begin(), myStr.end(), new string("Virker")) != nullptr? " Found " : " nothing") << " rvalue: " << *myfind(myStr.begin(), myStr.end(), new string("Virker")) << endl;
+    cout << ***myStr.begin() << endl;
+cout << ***myStr.end() << endl;
+
+    myfind(myStr.begin(), myStr.end(), std::string("test"));
+
+    cout << "Looking for 'Virker'? " << (myfind(myStr.begin(), myStr.end(), std::string("Virker")) != nullptr? " Found " : " nothing") << " rvalue: " << ***myfind(myStr.begin(), myStr.end(), std::string("Virker")) << endl;
+}
+
+void sharedptrTest()
+{
+    SharedPtr<std::string> stest(new std::string("Hej med dig"));
+
+    {
+        cout << *stest << " count: " << stest.count() << endl;
+        SharedPtr<std::string>  hej(new std::string("endnu en test"));
+        stest = hej;
+        cout << *hej << " == " << *stest << " count: " << hej.count() << " == " << stest.count() <<  endl;
+    }
+
+    cout << *stest << " count: " << stest.count() << endl;
+
+
+
+
 }

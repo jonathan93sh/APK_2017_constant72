@@ -3,10 +3,16 @@
 
 #include <exception>
 #include <memory.h>
+#include "sharedptr.h"
+
+
 template<class T>
 class MyArray
 {
 public:
+
+
+
     MyArray()
         :data_(nullptr), size_(0){}
 
@@ -105,6 +111,10 @@ template<class T>
 class MyArray<T*>
 {
 public:
+
+
+
+
     MyArray()
         :data_(nullptr), size_(0){}
 
@@ -160,10 +170,10 @@ public:
         memcpy(data_[size_-1],item,size);
     }*/
 
-    void fill(const T* item)
+    void fill(T * item)
     {
         //size_t size = item->size();
-        T ** tmp = new T*[size_ + 1];
+        SharedPtr<T> ** tmp = new SharedPtr<T>*[size_ + 1];
 
         for(auto i = 0; i < size_; i++)
             tmp[i] = data_[i];
@@ -172,10 +182,10 @@ public:
 
         data_ = tmp;
 
-        data_[size_++] = new T(*item);
+        data_[size_++] = new SharedPtr<T>(item);
     }
 
-    T ** begin() const
+    SharedPtr<T> * * begin() const
     {
         if (size_ == 0 )
         {
@@ -188,7 +198,7 @@ public:
         return (size_ == 0 ? nullptr : &data_[0]);
     }
 
-    T ** end() const
+    SharedPtr<T> * * end() const
     {
         if (size_ == 0 )
         {
@@ -202,24 +212,24 @@ public:
     }
 
 
-    const T*& operator[](int i) const
+    /*SharedPtr<const T> & operator[](int i) const
     {
         if( 0 <= i && i < size_)
         {
-            return data_[i];
+            return data_[i].operator ->();
         }
         else
         {
             throw std::out_of_range ("out of index: ERROR");
         }
 
-    }
+    }*/
 
-    T*& operator[](int i)
+    SharedPtr<T> & operator[](int i)
     {
         if( 0 <= i && i < size_)
         {
-            return data_[i];
+            return *data_[i];
         }
         else
         {
@@ -237,10 +247,11 @@ public:
 
 private:
 
-
-    T ** data_;
+    SharedPtr<T> ** data_;
     size_t size_;
 };
+
+
 
 
 template<typename T, typename V>
@@ -261,16 +272,17 @@ const T* myfind(const T* first,const T* last, const V& v)
     }
     return nullptr;
 }
+
 template < typename T, typename V>
-const T** myfind (const T** first , const T** last , const V& v)
+T** myfind (T** first , T** last , const V& v)
 {
     if(first == nullptr || last == nullptr || first > last)
         return nullptr;
 
-    const T** ptr = first;
+    T** ptr = first;
     while(ptr != last + 1)
     {
-        if(**ptr == *v)
+        if(**(*ptr) == v)
         {
             return ptr;
         }
@@ -279,5 +291,8 @@ const T** myfind (const T** first , const T** last , const V& v)
     }
     return nullptr;
 }
+
+
+
 
 #endif // MYARRAY_HPP

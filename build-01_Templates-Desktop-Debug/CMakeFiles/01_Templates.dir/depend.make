@@ -3,4 +3,5 @@
 
 CMakeFiles/01_Templates.dir/main.cpp.o: /home/stud/devel/APK_2017_constant72/01_Templates/main.cpp
 CMakeFiles/01_Templates.dir/main.cpp.o: /home/stud/devel/APK_2017_constant72/01_Templates/myarray.h
+CMakeFiles/01_Templates.dir/main.cpp.o: /home/stud/devel/APK_2017_constant72/01_Templates/sharedptr.h
 
