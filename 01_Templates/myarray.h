@@ -6,12 +6,12 @@
 #include "sharedptr.h"
 
 
-template<class T>
+template<typename T>
 class MyArray
 {
 public:
 
-
+    typedef T value_type;
 
     MyArray()
         :data_(nullptr), size_(0){}
@@ -65,7 +65,7 @@ public:
 
     const T * end() const
     {
-        return (size_ == 0 ? nullptr : &data_[size_-1]);
+        return (size_ == 0 ? nullptr : &data_[size_]);
     }
 
     T& operator[](int i)
@@ -112,7 +112,7 @@ class MyArray<T*>
 {
 public:
 
-
+    typedef T* value_type;
 
 
     MyArray()
@@ -208,7 +208,7 @@ public:
         {
             return &data_[size_-1];
         }
-        return (size_ == 0 ? nullptr : &data_[size_-1]);
+        return (size_ == 0 ? nullptr : &data_[size_]);
     }
 
 
@@ -258,19 +258,19 @@ template<typename T, typename V>
 const T* myfind(const T* first,const T* last, const V& v)
 {
     if(first == nullptr || last == nullptr || first > last)
-        return nullptr;
+        return last;
 
     const T* ptr = first;
-    while(ptr != last + 1)
+    while(ptr != last)
     {
         if(*ptr == v)
         {
-            return ptr;
+            break;
         }
         ptr++;
 
     }
-    return nullptr;
+    return ptr;
 }
 
 template < typename T, typename V>
@@ -280,18 +280,29 @@ T** myfind (T** first , T** last , const V& v)
         return nullptr;
 
     T** ptr = first;
-    while(ptr != last + 1)
+    while(ptr != last)
     {
         if(**(*ptr) == v)
         {
-            return ptr;
+            break;
         }
         ptr++;
 
     }
-    return nullptr;
+    return ptr;
 }
 
+template<typename U>
+typename U::value_type myAccumalation(const U& u)
+{
+    typename U::value_type m = typename U::value_type();
+
+    for(auto first : u)
+    {
+        m += first;
+    }
+    return m;
+}
 
 
 
