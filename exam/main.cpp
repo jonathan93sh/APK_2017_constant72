@@ -1,13 +1,13 @@
 #include <iostream>
 #include <typeinfo>
 #include "destTemplate.hpp"
-#define W_DIM 5
+#define W_DIM 3
 using namespace std;
 
 int main(int argc, char *argv[])
 {
-    char a[W_DIM] = {1,1,1,1,1};
-    char b[W_DIM] = {3,3,3,3,3};
+    char a[W_DIM] = {1,1,1};
+    char b[W_DIM] = {3,3,3};
 
     //string a = "test";
     //string b = "HHHH";
